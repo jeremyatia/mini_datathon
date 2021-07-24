@@ -1,7 +1,4 @@
-(buy me a coffee badge)
-(ci passes on netlify)
-(host on heroku)
-
+[Heroku web app](https://minidatathon.herokuapp.com/)
 # Mini Datathon
 
 This datathon platform is fully developped in python using *streamlit* in only **115 lines of code**!
@@ -29,7 +26,7 @@ in test** and should contain the column `predictions`.
 
 ## Example
 
-An example version of the code is deployed on heroku here: [web app](https://heroku...)
+An example version of the code is deployed on heroku here: [web app](https://minidatathon.herokuapp.com/)
 
 In the current version, the step #3 functions are implemented using the [UCI Secom](https://archive.ics.uci.edu/ml/datasets/SECOM)
 imbalanced dataset (binary classification) and evaluated by the [PR-AUC score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html#sklearn.metrics.average_precision_score):
@@ -99,3 +96,6 @@ The idea originally came from my dear devops coworker [Elhay Efrat](https://gith
 and I took the responsability to develop it.
 
 This version is not the one used at intel.
+
+If you like this project, let me know using by buying me a coffee :)
+<a href="https://www.buymeacoffee.com/jeremyatia" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 30px !important;width: 10px !important;" ></a>
