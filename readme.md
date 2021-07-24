@@ -14,7 +14,7 @@ Clone the repo into your server.
 
 ## Usage
 
-You need 4 simple steps to setup you mini hackathon:
+You need 4 simple steps to setup your mini hackathon:
 
 1) modify the password of the **admin** user in users.csv
 2) add the participants in users.csv
@@ -97,5 +97,5 @@ and I took the responsability to develop it.
 
 This version is not the one used at intel.
 
-If you like this project, let me know using by buying me a coffee :)
+If you like this project, let me know by buying me a coffee :)
 <a href="https://www.buymeacoffee.com/jeremyatia" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 30px !important;width: 10px !important;" ></a>
