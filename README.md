@@ -1,4 +1,7 @@
 [Heroku web app](https://minidatathon.herokuapp.com/)
+
+![](https://media.giphy.com/media/zOvBKUUEERdNm/giphy-downsized.gif)
+
 # Mini Datathon
 
 This datathon platform is fully developped in python using *streamlit* in only **115 lines of code**!
@@ -81,10 +84,10 @@ For more details, please refer to the script [users](users.py).
 
 ## Next steps
 
-- allow to have a *private* and *public* leaderboard like it is done on kaggle.com
-- store the **encrypted** password in users.csv
-- allow to connect using oauth
-- define user permissions
+- [ ] allow to have a *private* and *public* leaderboard like it is done on kaggle.com
+- [ ] store the **encrypted** password in users.csv
+- [ ] allow to connect using oauth
+- [ ] define user permissions
 
 
 ## License
