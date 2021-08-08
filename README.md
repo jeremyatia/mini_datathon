@@ -17,12 +17,12 @@ Clone the repo into your server.
 
 ## Usage
 
-You need 4 simple steps to setup your mini hackathon:
+You need 5 simple steps to setup your mini hackathon:
 
 1) modify the password of the **admin** user in users.csv
 2) add the participants in users.csv
 3) modify the `load_target` and `evaluate` function in [main.py](main.py) according to your needs (see [Example](#Example))
-4) edit the [templates.py](templates.py) to change the content of the different pages (`markdown format).
+4) edit the [templates.py](templates.py) to change the content of the different pages (`markdown` format).
 5) run the command `streamlit run main.py`
 
 Please do not forget to notify the participants that the submission file need to be a csv **ordered the same way as given 
