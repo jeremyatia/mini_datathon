@@ -1,6 +1,8 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 [Heroku web app](https://minidatathon.herokuapp.com/)
 
-![](https://media.giphy.com/media/zOvBKUUEERdNm/giphy-downsized.gif)
+![](mini_datathon.gif)
 
 # Mini Datathon
 
@@ -11,9 +13,7 @@ As written in the title, it is designed for *small datathon* and the scripts are
 ## Installation
 Clone the repo into your server.
 
-`git clone mini_datathon`
-
-`cd mini_datathon`
+`git clone mini_datathon; cd mini_datathon`
 
 ## Usage
 
@@ -22,7 +22,8 @@ You need 4 simple steps to setup your mini hackathon:
 1) modify the password of the **admin** user in users.csv
 2) add the participants in users.csv
 3) modify the `load_target` and `evaluate` function in [main.py](main.py) according to your needs (see [Example](#Example))
-4) run the command `streamlit run main.py`
+4) edit the [templates.py](templates.py) to change the content of the different pages (`markdown format).
+5) run the command `streamlit run main.py`
 
 Please do not forget to notify the participants that the submission file need to be a csv **ordered the same way as given 
 in test** and should contain the column `predictions`.
@@ -36,9 +37,13 @@ imbalanced dataset (binary classification) and evaluated by the [PR-AUC score](h
 ```python 
 from sklearn.metrics import average_precision_score
 
+@st.cache
 def load_target():
-    return pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/secom/secom_labels.data', header=None,
-                       sep=' ', names=['target', 'time']).iloc[:, 0]
+    labels = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/secom/secom_labels.data',
+                         header=None, sep=' ', names=['target', 'time'])
+    y_train = labels.sample(**train_test_sampling)
+    y_test = labels.loc[~labels.index.isin(y_train.index), 'target']
+    return y_test
 
 def evaluate(y_true, y_pred):
     return average_precision_score(y_true, y_pred, average='micro')
