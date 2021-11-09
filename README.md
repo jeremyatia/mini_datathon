@@ -105,5 +105,6 @@ and I took the responsability to develop it.
 
 This version is not the one used at intel.
 
-If you like this project, let me know by buying me a coffee :)
-<a href="https://www.buymeacoffee.com/jeremyatia" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 30px !important;width: 10px !important;" ></a>
+If you like this project, let me know by [buying me a coffee](https://www.buymeacoffee.com/jeremyatia) :)
+
+<a href="https://www.buymeacoffee.com/jeremyatia" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 100px !important;width: 300px !important;" ></a>
