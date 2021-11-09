@@ -1,17 +1,20 @@
+__author__ = 'Jeremy Atia'
+
+import sys
 import pandas as pd
 import streamlit as st
 from users import Users
 from leaderboard import LeaderBoard
 from sklearn.metrics import average_precision_score
 from templates import overview, data, evaluation
-train_test_sampling = {'frac': 0.7, 'random_state': 35}
-
+TRAIN_TEST_SAMPLING = {'frac': 0.7, 'random_state': 35}
+from streamlit import cli as stcli
 
 @st.cache
 def load_target():
     labels = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/secom/secom_labels.data',
                          header=None, sep=' ', names=['target', 'time'])
-    y_train = labels.sample(**train_test_sampling)
+    y_train = labels.sample(**TRAIN_TEST_SAMPLING)
     y_test = labels.loc[~labels.index.isin(y_train.index), 'target']
     return y_test
 
@@ -56,5 +59,9 @@ def main():
             st.info("Please enter a valid login/password")
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    if st._is_running_with_streamlit:
+        main()
+    else:
+        sys.argv = ["streamlit", "run", sys.argv[0]]
+        sys.exit(stcli.main())
