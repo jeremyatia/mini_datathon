@@ -1,6 +1,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[Heroku web app](https://minidatathon.herokuapp.com/)
+Find the explanation of this repo on medium [Towards Data Science](https://towardsdatascience.com/mini-datathon-the-platform-you-need-for-your-data-science-hackathon-b386cd125ca2)
+
+This webapp has been deployed on [Heroku](https://minidatathon.herokuapp.com/)
 
 ![](mini_datathon.gif)
 
