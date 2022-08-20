@@ -21,9 +21,18 @@ class Users:
         db.to_csv(os.path.join(self.current_path, self.db_file), index=False)
         return db
 
-    def exists(self, login, password):
+    def exists(self, login: str, password: str) -> bool:
         db = self.get_db()
         if db.loc[db.login == login].shape[0] != 0:
             if db.loc[db.login == login, 'password'].values[0] == password:
                 return True
         return False
+
+    def is_admin(self, login: str, password: str) -> bool:
+        db = self.get_db()
+        if db.loc[db.login == login, 'login'].values[0] == 'admin' and \
+           db.loc[db.login == login, 'password'].values[0] == password:
+           return True
+        else:
+            return False
+

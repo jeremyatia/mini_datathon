@@ -5,22 +5,19 @@ import pandas as pd
 import streamlit as st
 from users import Users
 from leaderboard import LeaderBoard
-from sklearn.metrics import average_precision_score
 from templates import overview, data, evaluation
-TRAIN_TEST_SAMPLING = {'frac': 0.7, 'random_state': 35}
-from streamlit import cli as stcli
+from streamlit.cli import main as stmain
+from config import Y_TEST_GOOGLE_PUBLIC_LINK, SKLEARN_SCORER, GREATER_IS_BETTER, SKLEARN_ADDITIONAL_PARAMETERS
 
 @st.cache
-def load_target():
-    labels = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/secom/secom_labels.data',
-                         header=None, sep=' ', names=['target', 'time'])
-    y_train = labels.sample(**TRAIN_TEST_SAMPLING)
-    y_test = labels.loc[~labels.index.isin(y_train.index), 'target']
+def load_target(google_link: str) -> pd.DataFrame:
+    url='https://drive.google.com/uc?id=' + google_link.split('/')[-2]
+    y_test = pd.read_csv(url, index_col=0)
     return y_test
 
 
-def evaluate(y_true, y_pred):
-    return average_precision_score(y_true, y_pred, average='micro')
+def evaluate(y_true, y_pred, callable, additional_parameters=SKLEARN_ADDITIONAL_PARAMETERS):
+    return callable(y_true, y_pred, **additional_parameters)
 
 
 def main():
@@ -43,20 +40,44 @@ def main():
 
         if users.exists(login, password):
             st.write('Welcome', login)
-            st.markdown('Submit the test predictions as a csv file ordered the same way as given, with the column `predictions`')
-            uploaded_file = st.file_uploader('Predictions', type='csv', accept_multiple_files=False)
+            st.markdown('Submit the test predictions as a csv file ordered the same way as given, in the example.')
+            
+            if users.is_admin(login, password):
+                with st.sidebar:
+                    st.write("***************")
+                    st.write("Manage the app")
+                    pause_datathon = st.checkbox("Pause Datathon", value=not(is_datathon_running()))
+                    change_datathon_status(pause_datathon)
 
-            if uploaded_file is not None:
-                y_pred = pd.read_csv(uploaded_file)['predictions']
-                y_test = load_target()
-                score = evaluate(y_test, y_pred)
+            uploaded_file = st.file_uploader('Predictions', type='csv', accept_multiple_files=False)
+            leaderboard = ldb.get()
+            if uploaded_file is not None and is_datathon_running():
+                y_pred = pd.read_csv(uploaded_file, index_col=0)
+                y_test = load_target(google_link=Y_TEST_GOOGLE_PUBLIC_LINK)
+                score = evaluate(y_test, y_pred, callable=SKLEARN_SCORER)
                 st.write("Your score is", score)
-                leaderboard = ldb.get()
-                new_lb = ldb.edit(leaderboard, id=login, score=score)
-                with st.beta_expander("Show leaderboard"):
-                    st.write(ldb.show(new_lb, ascending=False))
+                leaderboard = ldb.edit(leaderboard, id=login, score=score)
+
+            with st.expander("Show leaderboard", expanded=True):
+                st.write(ldb.show(leaderboard, ascending=not(GREATER_IS_BETTER)))
         else:
-            st.info("Please enter a valid login/password")
+            st.info("Please enter a valid login/password on the left side bar.")
+
+def is_datathon_running() -> bool:
+    with open('STATUS_DATATHON.txt', 'r') as f:
+        content = f.readline()
+    if content == 'running':
+        return True
+    else:
+        return False
+
+def change_datathon_status(pause_datathon: bool) -> None:
+    if pause_datathon:
+        with open('STATUS_DATATHON.txt', 'w') as f:
+            f.write('pause')
+    else:
+        with open('STATUS_DATATHON.txt', 'w') as f:
+            f.write('running')
 
 
 if __name__ == '__main__':
@@ -64,4 +85,4 @@ if __name__ == '__main__':
         main()
     else:
         sys.argv = ["streamlit", "run", sys.argv[0]]
-        sys.exit(stcli.main())
+        sys.exit(stmain())
