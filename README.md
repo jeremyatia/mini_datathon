@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-![HuggingFace space](https://huggingface.co/spaces/jeremyadd/mini_datathon)
+[HuggingFace space](https://huggingface.co/spaces/jeremyadd/mini_datathon)
 
 ![](mini_datathon.gif)
 
