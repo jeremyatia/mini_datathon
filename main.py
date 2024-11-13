@@ -6,10 +6,11 @@ import streamlit as st
 from users import Users
 from leaderboard import LeaderBoard
 from templates import overview, data, evaluation
-from streamlit.cli import main as stmain
+from streamlit.web.cli import main as stmain
+from streamlit import runtime
 from config import Y_TEST_GOOGLE_PUBLIC_LINK, SKLEARN_SCORER, GREATER_IS_BETTER, SKLEARN_ADDITIONAL_PARAMETERS
 
-@st.cache
+@st.cache_data
 def load_target(google_link: str) -> pd.DataFrame:
     url='https://drive.google.com/uc?id=' + google_link.split('/')[-2]
     y_test = pd.read_csv(url, index_col=0)
@@ -81,7 +82,7 @@ def change_datathon_status(pause_datathon: bool) -> None:
 
 
 if __name__ == '__main__':
-    if st._is_running_with_streamlit:
+    if runtime.exists():
         main()
     else:
         sys.argv = ["streamlit", "run", sys.argv[0]]

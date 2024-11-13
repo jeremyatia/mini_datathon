@@ -1,32 +1,40 @@
 # Presentation of the challenge
 context_markdown = """
-Small introduction about the challenge
+Manufacturing process feature selection and categorization
 """
 content_markdown = """
-Description about the problem
-
-Task 
-
-Number of features
-
-etc.
+Abstract: Data from a semi-conductor manufacturing process
+    Data Set Characteristics: Multivariate
+    Number of Instances: 1567
+    Area: Computer
+    Attribute Characteristics: Real
+    Number of Attributes: 591
+    Date Donated: 2008-11-19
+    Associated Tasks: Classification, Causal-Discovery
+    Missing Values? Yes
+A complex modern semi-conductor manufacturing process is normally under consistent
+surveillance via the monitoring of signals/variables collected from sensors and or
+process measurement points. However, not all of these signals are equally valuable
+in a specific monitoring system. The measured signals contain a combination of
+useful information, irrelevant information as well as noise. It is often the case
+that useful information is buried in the latter two. Engineers typically have a
+much larger number of signals than are actually required. If we consider each type
+of signal as a feature, then feature selection may be applied to identify the most
+relevant signals. The Process Engineers may then use these signals to determine key
+factors contributing to yield excursions downstream in the process. This will
+enable an increase in process throughput, decreased time to learning and reduce the
+per unit production costs.
 """
 #------------------------------------------------------------------------------------------------------------------#
 
 # Guide for the participants to get X_train, y_train and X_test
 # The google link can be placed in your google drive => get the shared links and place them here.
 data_instruction_commands = """
+In order to get the data simply run the following command:
 ```python
-import pandas as pd
-
-url='https://drive.google.com/file/d/1-4YpXkd2kIOM5viSRw8g7oOQm8sicciB/view?usp=sharing'
-url='https://drive.google.com/uc?id=' + url.split('/')[-2]
-y_train = pd.read_csv(url, index_col=0)
-
-url='https://drive.google.com/file/d/1-7VK3dNry2-AYnfRsxMWsOKhHHMTN_ZA/view?usp=sharing'
-url='https://drive.google.com/uc?id=' + url.split('/')[-2]
-test_indices = pd.read_csv(url, index_col=0)
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/secom/secom.data', sep=' ', header=None)
 ```
+Please ask the admin in order to get the target and the random seed used for train/test split.
 """
 
 # Target on test (hidden from the participants)
@@ -40,18 +48,15 @@ SKLEARN_SCORER = rmse
 SKLEARN_ADDITIONAL_PARAMETERS = {'squared': False}
 
 evaluation_content = """
-The predictions are evaluated according to the 'evaluation your choose'.
-
+The predictions are evaluated according to the PR-AUC score.
 You can get it using 
 ```python
-from sklearn.metrics import mean_squared_error as mse
-
-mse(y_train, y_pred_train, squared=False)
+from sklearn.metrics import average_precision_score
 ```
-More details [here](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html).
+More details [here](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html).
 """
 #------------------------------------------------------------------------------------------------------------------#
 
 # leaderboard benchmark score, will be displayed to everyone
-BENCHMARK_SCORE = 5859.21
+BENCHMARK_SCORE = 0.7
 #------------------------------------------------------------------------------------------------------------------#
