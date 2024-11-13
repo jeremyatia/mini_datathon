@@ -42,16 +42,16 @@ Y_TEST_GOOGLE_PUBLIC_LINK = 'https://drive.google.com/file/d/1-3X4eN_xk00GY4Bf6Y
 #------------------------------------------------------------------------------------------------------------------#
 
 # Evaluation metric and content 
-from sklearn.metrics import mean_squared_error as rmse
-GREATER_IS_BETTER = False  # example for ROC-AUC == True, for MSE == False, etc.
-SKLEARN_SCORER = rmse
-SKLEARN_ADDITIONAL_PARAMETERS = {'squared': False}
+from sklearn.metrics import precision_recall_curve as prauc
+GREATER_IS_BETTER = True  # example for ROC-AUC == True, for MSE == False, etc.
+SKLEARN_SCORER = prauc
+SKLEARN_ADDITIONAL_PARAMETERS = {}
 
 evaluation_content = """
 The predictions are evaluated according to the PR-AUC score.
 You can get it using 
 ```python
-from sklearn.metrics import average_precision_score
+from sklearn.metrics import average_precision_score as prauc
 ```
 More details [here](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html).
 """
